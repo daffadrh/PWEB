@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Kontak</title>
+    <style>
+        :root {
+            --primary-color: #279afe; /* Main button color */
+            --primary-hover-color: #1a7ed9; /* Button hover color */
+            --error-color: #ff4d4d; /* Error message color */
+            --border-color: #ccc; /* Input border color */
+            --input-bg: #f9f9f9; /* Input background color */
+            --font-color: #333; /* Main font color */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--font-color);
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: var(--font-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--input-bg);
+            font-size: 14px;
+            color: var(--font-color);
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        input[type="submit"] {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: var(--primary-hover-color);
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: -12px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="contactForm" onsubmit="return validateForm()">
+        <h2>Contact Form</h2>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <div id="nameError" class="error"></div>
+
+        <label for="email">Email Address:</label>
+        <input type="text" id="email" name="email">
+        <div id="emailError" class="error"></div>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+        <div id="phoneError" class="error"></div>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+        <div id="messageError" class="error"></div>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function validateForm() {
+            let valid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            document.getElementById('nameError').innerHTML = '';
+            document.getElementById('emailError').innerHTML = '';
+            document.getElementById('phoneError').innerHTML = '';
+            document.getElementById('messageError').innerHTML = '';
+
+            if (name === "") {
+                document.getElementById('nameError').innerHTML = 'Please input your name';
+                valid = false;
+            }
+
+            if (email === "") {
+                document.getElementById('emailError').innerHTML = 'Please input your email address';
+                valid = false;
+            } else if (!validateEmail(email)) {
+                document.getElementById('emailError').innerHTML = 'Email format invalid';
+                valid = false;
+            }
+
+            if (phone === "") {
+                document.getElementById('phoneError').innerHTML = 'Please input your phone number';
+                valid = false;
+            }
+
+            if (message === "") {
+                document.getElementById('messageError').innerHTML = 'Please input your message';
+                valid = false;
+            }
+
+            if (valid) {
+                alert("Form has been submitted");
+            }
+            
+            return valid;
+        }
+
+    </script>
+
+</body>
+</html>
